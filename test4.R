@@ -9,10 +9,10 @@ url = 'https://docs.google.com/spreadsheets/d/1PWWoMqE5o3ChwJbpexeeYkW6p4BHL9hub
 denco2 = as.data.frame(gsheet2tbl(url))
 str(denco2)
 
-head(sales1,n=7)
-names(sales1)
+#head(sales1,n=7)
+#names(sales1)
 
-sales = sales1  # keeping a backup
+sales = denco2  # keeping a backup
 ?summary
 summary(sales)
 
@@ -49,7 +49,9 @@ names(sales)
 
 library(dplyr)
 
-sales %>% dplyr::filter(margin > 1000000)
+sales %>% dplyr::filter(margin > 1000000) %>%arrange(region,desc(revenue))
+filter(sales,margin>1000000)
+sales %>% dplyr::filter(region =='01-East'&revenue>4000000) %>% select(partnum,region)%>%head
 
 names(sales)
 sales %>% group_by(custname) %>% 
@@ -71,7 +73,7 @@ head(df5)
 
 # Freqency --------
 names(sales)
-head(sort(table(sales$custname), decreasing=T))
+head(sort(table(sales$custname), decreasing=T),n=10)
 
 #xtab
 #
